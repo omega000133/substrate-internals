@@ -9,15 +9,20 @@ on:
     branches:
       - master
       - main
+    paths-ignore:
+      - '**.md'
   pull_request:
+    paths-ignore:
+      - '**.md'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 env:
-  RUSTFLAGS: -Dwarnings
+  # Not needed in CI, should make things a bit faster
+  CARGO_INCREMENTAL: 0
+  CARGO_TERM_COLOR: always
+  # Build smaller artifacts to avoid running out of space in CI
+  RUSTFLAGS: -C strip=debuginfo
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,12 +43,39 @@ jobs:
       
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
+        # TODO: Below can be removed when https://github.com/actions-rs/toolchain/issues/126 is resolved
         with:
           toolchain: nightly
+          target: wasm32-unknown-unknown
           profile: minimal
           components: rustfmt,clippy
           override: true
 
+      - name: Configure cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
+      
+      - name: cargo fmt --all -- --check
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+      
+      - name: cargo clippy --all
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all -- -D warnings
+      
+      - name: cargo test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+      
       - name: cargo check --release
         uses: actions-rs/cargo@v1
         with:
