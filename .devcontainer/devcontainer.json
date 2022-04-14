@@ -1,0 +1,28 @@
+{
+  "name": "Substrate Node",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "buster"
+    }
+  },
+  "settings": {
+    "lldb.executable": "/usr/bin/lldb",
+    "files.watcherExclude": {
+			"**/target/**": true
+		},
+    "rust-analyzer.checkOnSave.command": "clippy"
+  },
+  "extensions": [
+    "vadimcn.vscode-lldb",
+		"mutantdino.resourcemonitor",
+		"matklad.rust-analyzer",
+		"tamasfe.even-better-toml",
+		"serayuzgur.crates"
+  ],
+  "forwardPorts": [
+    3000,
+    9944
+  ],
+  "remoteUser": "akagi201"
+}

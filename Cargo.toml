@@ -1,0 +1,10 @@
+[profile.release]
+# Unwind the stack upon panic.
+panic = 'unwind'
+
+[workspace]
+members = [
+  'nodes/*',
+  'pallets/*',
+  'runtimes/*',
+]
