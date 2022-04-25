@@ -1,19 +1,30 @@
 .PHONY: all
-all:test build
-	@echo "all done"
+all:help
 
-.PHONY: build
+.PHONY: build # cargo build
 build:
-	cargo build --release
+	RUSTFLAGS="-C link-arg=-s" cargo build --release
 
-.PHONY: run-dev
+.PHONY: fmt # cargo fmt --all
+fmt:
+	cargo fmt --all
+
+.PHONY: check # cargo clippy --all
+check:
+	cargo clippy --all
+
+.PHONY: run-dev # run dev node
 run-dev:
 	./target/release/template-node --tmp --dev --rpc-port 9933
 
-.PHONY: test
+.PHONY: test # cargo test
 test:
 	cargo test
 
-.PHONY: benchmark
+.PHONY: benchmark # runtime benchmarks
 benchmark:
 	cargo build --release --features runtime-benchmarks
+
+.PHONY: help # Generate list of targets with descriptions
+help:
+	@grep '^.PHONY: .* #' Makefile | sed 's/\.PHONY: \(.*\) # \(.*\)/\1	\2/' | expand -t20
