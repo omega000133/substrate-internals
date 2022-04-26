@@ -11,5 +11,9 @@ make
 make fmt
 make check
 make test
-make build
+make build (make fleet)
 ```
+
+## components
+
+* `template`: the place to do experiments with many pallets

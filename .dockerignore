@@ -4,3 +4,4 @@ doc
 **target*
 .dockerignore
 .envrc
+fleet.toml

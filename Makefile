@@ -5,6 +5,10 @@ all:help
 build:
 	RUSTFLAGS="-C link-arg=-s" cargo build --release
 
+.PHONY: fleet # fleet build (faster than cargo build)
+fleet:
+	fleet build --release
+
 .PHONY: fmt # cargo fmt --all
 fmt:
 	cargo fmt --all
