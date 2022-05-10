@@ -34,6 +34,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@main
+        with:
+          access_token: ${{ github.token }}
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v3
@@ -57,7 +62,15 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
+            ~/.cargo/advisory-db
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
+      
+      - name: cargo deny
+        uses: EmbarkStudios/cargo-deny-action@main
+        with:
+          log-level: warn
+          command: check
+          command-arguments: Bans Sources Licenses
       
       - name: cargo fmt --all -- --check
         uses: actions-rs/cargo@v1
