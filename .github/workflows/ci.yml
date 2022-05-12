@@ -55,6 +55,7 @@ jobs:
           profile: minimal
           components: rustfmt,clippy
           override: true
+          default: true
 
       - name: Configure cache
         uses: actions/cache@v3
@@ -63,7 +64,8 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             ~/.cargo/advisory-db
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
+            target
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.toml') }}
       
       - name: cargo deny
         uses: EmbarkStudios/cargo-deny-action@main
