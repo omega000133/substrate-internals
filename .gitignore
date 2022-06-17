@@ -17,4 +17,4 @@
 
 fleet.toml
 
-/.vscode
+.vscode/*.log

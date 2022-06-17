@@ -11,11 +11,11 @@ fleet:
 
 .PHONY: fmt # cargo fmt --all
 fmt:
-	cargo fmt --all
+	cargo +nightly fmt --all
 
 .PHONY: check # cargo clippy --all
 check:
-	cargo clippy --all
+	cargo +nightly clippy --all
 
 .PHONY: run-dev # run dev node
 run-dev:
