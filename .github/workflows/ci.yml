@@ -72,7 +72,7 @@ jobs:
         with:
           log-level: warn
           command: check
-          command-arguments: Bans Sources Licenses
+          command-arguments: bans sources licenses
       
       - name: cargo fmt --all -- --check
         uses: actions-rs/cargo@v1

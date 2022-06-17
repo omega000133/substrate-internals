@@ -13,9 +13,17 @@ fleet:
 fmt:
 	cargo +nightly fmt --all
 
-.PHONY: check # cargo clippy --all
+.PHONY: check # cargo check
 check:
-	cargo +nightly clippy --all
+	# cargo +nightly deny check
+	# cargo +nightly outdated --exit-code 1
+	# cargo +nightly udeps
+	# cargo +nightly audit
+	# cargo +nightly pants
+
+.PHONY: lint # cargo lint
+lint:
+	cargo +nightly clippy --all -- -D warnings
 
 .PHONY: run-dev # run dev node
 run-dev:
