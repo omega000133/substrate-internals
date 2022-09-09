@@ -1,1 +1,1 @@
-# pallet template
+License: Unlicense
