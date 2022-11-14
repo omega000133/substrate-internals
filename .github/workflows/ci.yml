@@ -67,6 +67,11 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.toml') }}
       
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: cargo deny
         uses: EmbarkStudios/cargo-deny-action@main
         with:
