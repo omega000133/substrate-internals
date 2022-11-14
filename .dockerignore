@@ -1,7 +1,8 @@
+.devcontainer
 .git
 .github
-doc
-**target*
-.dockerignore
+.vscode
 .envrc
-fleet.toml
+docs
+scripts
+target
