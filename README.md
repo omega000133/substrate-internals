@@ -11,7 +11,7 @@ make
 make fmt
 make check
 make test
-make build (make fleet)
+make build
 ```
 
 ## components
