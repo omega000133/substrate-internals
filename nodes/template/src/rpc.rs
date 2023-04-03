@@ -8,12 +8,13 @@
 use std::sync::Arc;
 
 use jsonrpsee::RpcModule;
-pub use sc_rpc_api::DenyUnsafe;
+use template_runtime::{opaque::Block, AccountId, Balance, Index};
 use sc_transaction_pool_api::TransactionPool;
 use sp_api::ProvideRuntimeApi;
 use sp_block_builder::BlockBuilder;
 use sp_blockchain::{Error as BlockChainError, HeaderBackend, HeaderMetadata};
-use template_runtime::{opaque::Block, AccountId, Balance, Index};
+
+pub use sc_rpc_api::DenyUnsafe;
 
 /// Full client dependencies.
 pub struct FullDeps<C, P> {

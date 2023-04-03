@@ -1,6 +1,6 @@
 //! Benchmarking setup for pallet-template
 
-use frame_benchmarking::{benchmarks, whitelisted_caller};
+use frame_benchmarking::v1::{benchmarks, whitelisted_caller};
 use frame_system::RawOrigin;
 
 use super::*;
