@@ -1,17 +1,17 @@
+use frame_benchmarking_cli::{BenchmarkCmd, ExtrinsicFactory, SUBSTRATE_REFERENCE_HARDWARE};
+use sc_cli::{ChainSpec, RuntimeVersion, SubstrateCli};
+use sc_service::PartialComponents;
+use sp_keyring::Sr25519Keyring;
+use template_runtime::{Block, EXISTENTIAL_DEPOSIT};
+#[cfg(feature = "try-runtime")]
+use try_runtime_cli::block_building_info::timestamp_with_aura_info;
+
 use crate::{
 	benchmarking::{inherent_benchmark_data, RemarkBuilder, TransferKeepAliveBuilder},
 	chain_spec,
 	cli::{Cli, Subcommand},
 	service,
 };
-use frame_benchmarking_cli::{BenchmarkCmd, ExtrinsicFactory, SUBSTRATE_REFERENCE_HARDWARE};
-use template_runtime::{Block, EXISTENTIAL_DEPOSIT};
-use sc_cli::{ChainSpec, RuntimeVersion, SubstrateCli};
-use sc_service::PartialComponents;
-use sp_keyring::Sr25519Keyring;
-
-#[cfg(feature = "try-runtime")]
-use try_runtime_cli::block_building_info::timestamp_with_aura_info;
 
 impl SubstrateCli for Cli {
 	fn impl_name() -> String {
@@ -177,8 +177,9 @@ pub fn run() -> sc_cli::Result<()> {
 		},
 		#[cfg(feature = "try-runtime")]
 		Some(Subcommand::TryRuntime(cmd)) => {
-			use crate::service::ExecutorDispatch;
 			use sc_executor::{sp_wasm_interface::ExtendedHostFunctions, NativeExecutionDispatch};
+
+			use crate::service::ExecutorDispatch;
 			let runner = cli.create_runner(cmd)?;
 			runner.async_run(|config| {
 				// we don't need any of the components of new_partial, just a runtime, or a task

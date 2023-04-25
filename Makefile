@@ -3,7 +3,7 @@ all:help
 
 .PHONY: build # cargo build
 build:
-	RUSTFLAGS="-C link-arg=-s" cargo +nightly build --release
+	RUSTFLAGS="-C link-arg=-s" cargo build --release
 
 .PHONY: fmt # cargo fmt --all
 fmt:
@@ -27,11 +27,11 @@ run-dev:
 
 .PHONY: test # cargo test
 test:
-	cargo +nightly test
+	cargo test
 
 .PHONY: benchmark # runtime benchmarks
 benchmark:
-	cargo +nightly build --release --features runtime-benchmarks
+	cargo build --release --features runtime-benchmarks
 
 .PHONY: help # Generate list of targets with descriptions
 help:

@@ -1,0 +1,121 @@
+{
+	"settings": {
+		"provider": "native",
+		"timeout": 1800
+	},
+	"relaychain": {
+		"chain": "rococo-local",
+		"default_command": "polkadot",
+		"default_args": [
+			"-lparachain=debug,xcm=trace",
+			"--state-pruning=archive",
+			"--no-hardware-benchmarks"
+		],
+		"nodes": [
+			{
+				"name": "alice",
+				"validator": true,
+				"env": [
+					{
+						"name": "RUST_LOG",
+						"value": "trace"
+					}
+				],
+				"ws_port": "{{RELAY_WS_PORT}}",
+				"rpc_port": "{{RELAY_RPC_PORT}}"
+			},
+			{
+				"name": "bob",
+				"validator": true,
+				"env": [
+					{
+						"name": "RUST_LOG",
+						"value": "trace"
+					}
+				]
+			},
+			{
+				"name": "charlie",
+				"validator": true,
+				"env": [
+					{
+						"name": "RUST_LOG",
+						"value": "trace"
+					}
+				]
+			}
+		]
+	},
+	"parachains": [
+		{
+			"cumulus_based": true,
+			"id": 2023,
+			"chain": "moonbase-local",
+			"default_args": [
+				"-lparachain=trace,xcm=trace,cumulus-consensus=trace,cumulus-collator=trace,collator_protocol=trace,collation_generation=trace",
+				"--trie-cache-size=0",
+				"--state-pruning=archive",
+				"--no-hardware-benchmarks",
+				"--unsafe-ws-external",
+				"--unsafe-rpc-external",
+				"--rpc-cors=all"
+			],
+			"collators": [
+				{
+					"command": "moonbeam",
+					"name": "alith",
+					"ws_port": "{{MOONBASE_WS_PORT}}",
+					"rpc_port": "{{MOONBASE_RPC_PORT}}",
+					"env": [
+						{
+							"name": "RUST_LOG",
+							"value": "trace"
+						}
+					]
+				}
+			]
+		},
+		{
+			"cumulus_based": true,
+			"id": 2001,
+			"chain": "moonbase-local",
+			"default_args": [
+				"-lparachain=trace,xcm=trace,cumulus-consensus=trace,cumulus-collator=trace,collator_protocol=trace,collation_generation=trace",
+				"--trie-cache-size=0",
+				"--state-pruning=archive",
+				"--no-hardware-benchmarks",
+				"--unsafe-ws-external",
+				"--unsafe-rpc-external",
+				"--rpc-cors=all"
+			],
+			"collators": [
+				{
+					"command": "moonbeam",
+					"name": "baltathar",
+					"ws_port": "{{PARACHAIN_WS_PORT}}",
+					"rpc_port": "{{PARACHAIN_RPC_PORT}}",
+					"env": [
+						{
+							"name": "RUST_LOG",
+							"value": "trace"
+						}
+					]
+				}
+			]
+		}
+	],
+	"hrmp_channels": [
+		{
+			"sender": 2023,
+			"recipient": 2001,
+			"max_capacity": 8,
+			"max_message_size": 512
+		},
+		{
+			"sender": 2001,
+			"recipient": 2023,
+			"max_capacity": 8,
+			"max_message_size": 512
+		}
+	]
+}
