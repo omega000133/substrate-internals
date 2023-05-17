@@ -1,0 +1,48 @@
+[settings]
+provider = "native"
+enable_tracing = false
+
+[relaychain]
+default_command = "polkadot-v0.9.42"
+default_args = [ "-lparachain=debug" ]
+chain = "rococo-local"
+
+[[relaychain.nodes]]
+name = "alice"
+
+[[relaychain.nodes]]
+name = "bob"
+
+[[relaychain.nodes]]
+name = "charlie"
+
+[[relaychain.nodes]]
+name = "dave"
+
+[[parachains]]
+id = 1000
+cumulus_based = true
+
+[parachains.collator]
+name = "parachain-1000"
+command = "parachain-template-node-v0.9.42"
+
+[[parachains]]
+id = 1001
+cumulus_based = true
+
+[parachains.collator]
+name = "parachain-1001"
+command = "parachain-template-node-v0.9.42"
+
+[[hrmp_channels]]
+sender = 1000
+recipient = 1001
+max_capacity = 8
+max_message_size = 8000
+
+[[hrmp_channels]]
+sender = 1001
+recipient = 1000
+max_capacity = 8
+max_message_size = 8000
