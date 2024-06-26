@@ -41,7 +41,7 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Set up
         run: sudo apt update -y && sudo apt install -y git clang curl libssl-dev llvm libudev-dev
