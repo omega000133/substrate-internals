@@ -8,7 +8,7 @@ COPY . .
 RUN cargo build --locked --release
 
 # This is the 2nd stage: a very small image where we copy the binary."
-FROM docker.io/library/ubuntu:22.10
+FROM docker.io/library/ubuntu:24.04
 
 # Copy the node binary.
 COPY --from=builder /template-node/target/release/template-node /usr/local/bin
